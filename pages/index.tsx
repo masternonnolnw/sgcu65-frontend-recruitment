@@ -319,13 +319,13 @@ const Home: NextPage = () => {
       >
         <IconButton
           href="https://www.instagram.com/nonnolnw/"
-          sx={{ width: "68px", height: "68px", ml: "auto", mr: "16px" }}
+          sx={{ width: "68px", height: "68px", ml: "auto" }}
         >
           <Image src={ig} alt="ig logo" width={48} height={48} />
         </IconButton>
         <IconButton
           href="https://www.facebook.com/nontapan.koro/"
-          sx={{ width: "68px", height: "68px", mr: "16px" }}
+          sx={{ width: "68px", height: "68px" }}
         >
           <Image src={facebook} alt="kite image" width={48} height={48} />
         </IconButton>
