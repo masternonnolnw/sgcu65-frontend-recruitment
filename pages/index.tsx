@@ -316,7 +316,7 @@ const Home: NextPage = () => {
                       fontStyle: "normal",
                       padding: "0",
                       height: "32px",
-                      paddingLeft: "10px"
+                      paddingLeft: "3px"
                     }
                   }}
                   sx={{ mt: "31px", width: "260px" }}
