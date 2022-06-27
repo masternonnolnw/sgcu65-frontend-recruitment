@@ -14,7 +14,13 @@ export default function UserCard(props: UserCardProps) {
         backgroundColor: "white",
         border: "1px solid #DE5C8E",
         borderRadius: "8px",
-        padding: "15px"
+        padding: "15px",
+        transition: "0.2s",
+        overflowX: "hidden",
+        "&:hover": {
+          backgroundColor: "#fcedf3",
+          width: "350px"
+        }
       }}
     >
       <Typography

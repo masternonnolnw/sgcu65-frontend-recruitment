@@ -8,11 +8,15 @@ import ig from "../public/assets/ig-logo.svg";
 import facebook from "../public/assets/fb-logo.svg";
 import twitter from "../public/assets/twitter-logo.svg";
 import { LoadingButton } from "@mui/lab";
+import CloseIcon from "@mui/icons-material/Close";
 import {
+  Alert,
   Box,
   Button,
   Container,
   IconButton,
+  InputAdornment,
+  Snackbar,
   Stack,
   TextField,
   Typography
@@ -20,6 +24,7 @@ import {
 import { url } from "inspector";
 import { useState } from "react";
 import axios from "axios";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 const Home: NextPage = () => {
@@ -47,12 +52,14 @@ const Home: NextPage = () => {
     {
       name: "password",
       label: "รหัสผ่าน",
-      id: "password"
+      id: "password",
+      password: true
     },
     {
       name: "confirmPassword",
       label: "ยืนยันรหัสผ่าน",
-      id: "confirm-password"
+      id: "confirm-password",
+      password: true
     }
   ];
 
@@ -73,6 +80,26 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
 
   const [resFromSubmit, setResFromSubmit] = useState("");
+
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleOpenSnackBar = () => {
+    setOpenSnackBar(true);
+  };
+
+  const handleCloseSnackBar = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackBar(false);
+  };
 
   const validate: any = (fieldValues = formValues) => {
     let temp: any = { ...errors };
@@ -170,6 +197,7 @@ const Home: NextPage = () => {
           }
         );
         setLoading(false);
+        handleOpenSnackBar();
       } catch (err: any) {
         setLoading(false);
         setResFromSubmit(err.response.data.message[0]);
@@ -240,6 +268,14 @@ const Home: NextPage = () => {
                   onChange={handleInputValue}
                   variant="outlined"
                   size="small"
+                  type={
+                    inputFieldValue.password
+                      ? (index == 4 && showPassword) ||
+                        (index == 5 && showConfirmPassword)
+                        ? "text"
+                        : "password"
+                      : "text"
+                  }
                   {...(errors[inputFieldValue.name] && {
                     error: true,
                     helperText: errors[inputFieldValue.name]
@@ -252,7 +288,29 @@ const Home: NextPage = () => {
                       color: "rgba(180, 180, 180, 1)"
                     }
                   }}
-                  inputProps={{
+                  InputProps={{
+                    endAdornment: inputFieldValue.password ? (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => {
+                            index == 4
+                              ? setShowPassword(!showPassword)
+                              : setShowConfirmPassword(!showConfirmPassword);
+                          }}
+                          edge="end"
+                          sx={{ mr: "5px" }}
+                        >
+                          {(index == 4 && showPassword) ||
+                          (index == 5 && showConfirmPassword) ? (
+                            <VisibilityOff sx={{ fontSize: "20px" }} />
+                          ) : (
+                            <Visibility sx={{ fontSize: "20px" }} />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ) : (
+                      <></>
+                    ),
                     style: {
                       fontFamily: "Prompt",
                       fontStyle: "normal",
@@ -262,6 +320,29 @@ const Home: NextPage = () => {
                     }
                   }}
                   sx={{ mt: "31px", width: "260px" }}
+                  // endAdornment={
+                  //   inputFieldValue.password ? (
+                  // <InputAdornment position="end">
+                  //   <IconButton
+                  //     onClick={() => {
+                  //       index == 4
+                  //         ? setShowPassword(!showPassword)
+                  //         : setShowConfirmPassword(!showConfirmPassword);
+                  //     }}
+                  //     edge="end"
+                  //   >
+                  //     {(index == 4 && showPassword) ||
+                  //     (index == 5 && showConfirmPassword) ? (
+                  //       <VisibilityOff />
+                  //     ) : (
+                  //       <Visibility />
+                  //     )}
+                  //   </IconButton>
+                  // </InputAdornment>
+                  //   ) : (
+                  //     <></>
+                  //   )
+                  // }
                 />
                 // <TextField
                 //   key={index}
@@ -336,6 +417,19 @@ const Home: NextPage = () => {
           <Image src={twitter} alt="kite image" width={48} height={48} />
         </IconButton>
       </Stack>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert
+          onClose={handleCloseSnackBar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Register success.
+        </Alert>
+      </Snackbar>
     </>
   );
 };

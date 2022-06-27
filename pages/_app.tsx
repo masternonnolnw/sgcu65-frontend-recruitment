@@ -18,7 +18,20 @@ function MyApp({ Component, pageProps }: AppProps) {
           backgroundImage: "url(/assets/bg-desktop.svg)",
           overflowX: "hidden",
           overflowY: "auto",
-          backgroundAttachment: "scroll"
+          backgroundAttachment: "scroll",
+          "&::-webkit-scrollbar": {
+            width: "0.5em"
+          },
+          "&::-webkit-scrollbar-track": {
+            boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+            webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)"
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#fcedf3",
+            borderRadius: "20px"
+            // width: "15px"
+            // outline: "1px solid slategrey"
+          }
         }}
       >
         <Component {...pageProps} />
