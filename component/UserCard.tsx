@@ -10,7 +10,7 @@ export default function UserCard(props: UserCardProps) {
     <Box
       sx={{
         width: "249px",
-        height: "95px",
+        height: "105px",
         backgroundColor: "white",
         border: "1px solid #DE5C8E",
         borderRadius: "8px",
@@ -25,7 +25,7 @@ export default function UserCard(props: UserCardProps) {
     >
       <Typography
         sx={{
-          width: "213px",
+          width: "100%",
           height: "36px",
 
           fontFamily: "Prompt",
