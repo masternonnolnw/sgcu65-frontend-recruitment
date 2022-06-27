@@ -7,6 +7,7 @@ import kite from "../public/assets/kite.png";
 import ig from "../public/assets/ig-logo.svg";
 import facebook from "../public/assets/fb-logo.svg";
 import twitter from "../public/assets/twitter-logo.svg";
+import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
@@ -18,6 +19,8 @@ import {
 } from "@mui/material";
 import { url } from "inspector";
 import { useState } from "react";
+import axios from "axios";
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 const Home: NextPage = () => {
   const inputFieldValues = [
@@ -66,6 +69,10 @@ const Home: NextPage = () => {
 
   const [formValues, setFormValues] = useState(initialFormValues);
   const [errors, setErrors] = useState({} as any);
+
+  const [loading, setLoading] = useState(false);
+
+  const [resFromSubmit, setResFromSubmit] = useState("");
 
   const validate: any = (fieldValues = formValues) => {
     let temp: any = { ...errors };
@@ -123,6 +130,8 @@ const Home: NextPage = () => {
   };
 
   const handleInputValue = (e: any) => {
+    setResFromSubmit("");
+
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -138,6 +147,7 @@ const Home: NextPage = () => {
       fieldValues.email &&
       fieldValues.password &&
       fieldValues.confirmPassword &&
+      resFromSubmit === "" &&
       Object.values(errors).every((x) => x === "");
 
     return isValid;
@@ -145,9 +155,25 @@ const Home: NextPage = () => {
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     if (formIsValid()) {
-      // await postContactForm(values);
-      alert("You've posted your form!");
+      try {
+        const res: any = await axios.post(
+          `https://cors-anywhere.herokuapp.com/${baseURL}/users`,
+          // `https://api.allorigins.win/raw?url=${baseURL}/users`,
+          {
+            username: formValues.username,
+            name: formValues.firstName,
+            surname: formValues.lastName,
+            email: formValues.email,
+            password: formValues.password
+          }
+        );
+        setLoading(false);
+      } catch (err: any) {
+        setLoading(false);
+        setResFromSubmit(err.response.data.message[0]);
+      }
     }
   };
 
@@ -253,15 +279,27 @@ const Home: NextPage = () => {
                 // />
               );
             })}
-
-            <Button
+            <Typography
+              sx={{
+                mb: "5px",
+                mt: "26px",
+                fontFamily: "Prompt",
+                fontStyle: "normal",
+                fontSize: "13px",
+                color: "red"
+              }}
+            >
+              {resFromSubmit ? "*" : ""}
+              {resFromSubmit}
+            </Typography>
+            <LoadingButton
               type="submit"
+              loading={loading}
               disabled={!formIsValid()}
               sx={{
                 textTransform: "none",
                 color: "white",
                 backgroundColor: "#DE5C8E",
-                mt: "31px",
                 width: "100%",
                 fontFamily: "Prompt",
                 fontStyle: "normal",
@@ -272,22 +310,29 @@ const Home: NextPage = () => {
               }}
             >
               Submit
-            </Button>
+            </LoadingButton>
           </form>
         </Box>
       </Stack>
       <Stack
-        sx={{ mt: "45px", width: "100%", flexDirection: "row", mb: "15px" }}
+        sx={{ mt: "30px", width: "100%", flexDirection: "row", mb: "10px" }}
       >
         <IconButton
+          href="https://www.instagram.com/nonnolnw/"
           sx={{ width: "68px", height: "68px", ml: "auto", mr: "16px" }}
         >
           <Image src={ig} alt="ig logo" width={48} height={48} />
         </IconButton>
-        <IconButton sx={{ width: "68px", height: "68px", mr: "16px" }}>
+        <IconButton
+          href="https://www.facebook.com/nontapan.koro/"
+          sx={{ width: "68px", height: "68px", mr: "16px" }}
+        >
           <Image src={facebook} alt="kite image" width={48} height={48} />
         </IconButton>
-        <IconButton sx={{ width: "68px", height: "68px", mr: "102px" }}>
+        <IconButton
+          href="https://twitter.com/"
+          sx={{ width: "68px", height: "68px", mr: "102px" }}
+        >
           <Image src={twitter} alt="kite image" width={48} height={48} />
         </IconButton>
       </Stack>
