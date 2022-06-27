@@ -5,6 +5,8 @@ import UserCard from "../component/UserCard";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Register() {
+  const [filter, setFilter] = useState("");
+
   const [allUsers, setAllUsers] = useState([
     {
       username: "",
@@ -12,6 +14,33 @@ export default function Register() {
       surname: ""
     }
   ]);
+
+  const [allUsersAfterFilter, setAllUsersAfterFilter] = useState([
+    {
+      username: "",
+      name: "",
+      surname: ""
+    }
+  ]);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
+  };
+
+  useEffect(() => {
+    const newAllUsers = [];
+    for (var i = 0; i < allUsers.length; i++) {
+      if (allUsers[i].username.toLowerCase().indexOf(filter) > -1) {
+        newAllUsers.push(allUsers[i]);
+      } else if (allUsers[i].name.toLowerCase().indexOf(filter) > -1) {
+        newAllUsers.push(allUsers[i]);
+      } else if (allUsers[i].surname.toLowerCase().indexOf(filter) > -1) {
+        newAllUsers.push(allUsers[i]);
+      }
+      setAllUsersAfterFilter(newAllUsers);
+    }
+  }, [filter, allUsers]);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
@@ -19,12 +48,14 @@ export default function Register() {
         `https://api.allorigins.win/raw?url=${baseURL}/users`
       );
       setAllUsers(res.data);
+      setAllUsersAfterFilter(res.data);
     };
     fetchData().catch(console.error);
   }, []);
+
   const stackUserCards = [];
-  if (allUsers) {
-    for (var i = 0; i < allUsers.length; i += 4) {
+  if (allUsersAfterFilter) {
+    for (var i = 0; i < allUsersAfterFilter.length; i += 4) {
       stackUserCards.push(
         <Stack
           key={"stackUserCards" + i}
@@ -35,12 +66,12 @@ export default function Register() {
           }}
         >
           <UserCard
-            key={allUsers[i].username}
-            username={allUsers[i].username}
-            firstName={allUsers[i].name}
-            lastName={allUsers[i].surname}
+            key={allUsersAfterFilter[i].username}
+            username={allUsersAfterFilter[i].username}
+            firstName={allUsersAfterFilter[i].name}
+            lastName={allUsersAfterFilter[i].surname}
           />
-          {i + 1 >= allUsers.length ? (
+          {i + 1 >= allUsersAfterFilter.length ? (
             <Box
               sx={{
                 width: "249px",
@@ -49,14 +80,14 @@ export default function Register() {
             />
           ) : (
             <UserCard
-              key={allUsers[i + 1].username}
-              username={allUsers[i + 1].username}
-              firstName={allUsers[i + 1].name}
-              lastName={allUsers[i + 1].surname}
+              key={allUsersAfterFilter[i + 1].username}
+              username={allUsersAfterFilter[i + 1].username}
+              firstName={allUsersAfterFilter[i + 1].name}
+              lastName={allUsersAfterFilter[i + 1].surname}
             />
           )}
 
-          {i + 2 >= allUsers.length ? (
+          {i + 2 >= allUsersAfterFilter.length ? (
             <Box
               sx={{
                 width: "249px",
@@ -65,14 +96,14 @@ export default function Register() {
             />
           ) : (
             <UserCard
-              key={allUsers[i + 2].username}
-              username={allUsers[i + 2].username}
-              firstName={allUsers[i + 2].name}
-              lastName={allUsers[i + 2].surname}
+              key={allUsersAfterFilter[i + 2].username}
+              username={allUsersAfterFilter[i + 2].username}
+              firstName={allUsersAfterFilter[i + 2].name}
+              lastName={allUsersAfterFilter[i + 2].surname}
             />
           )}
 
-          {i + 3 >= allUsers.length ? (
+          {i + 3 >= allUsersAfterFilter.length ? (
             <Box
               sx={{
                 width: "249px",
@@ -81,10 +112,10 @@ export default function Register() {
             />
           ) : (
             <UserCard
-              key={allUsers[i + 3].username}
-              username={allUsers[i + 3].username}
-              firstName={allUsers[i + 3].name}
-              lastName={allUsers[i + 3].surname}
+              key={allUsersAfterFilter[i + 3].username}
+              username={allUsersAfterFilter[i + 3].username}
+              firstName={allUsersAfterFilter[i + 3].name}
+              lastName={allUsersAfterFilter[i + 3].surname}
             />
           )}
         </Stack>
@@ -125,6 +156,8 @@ export default function Register() {
             label="ค้นหา"
             variant="outlined"
             size="small"
+            onChange={handleSearch}
+            value={filter}
             InputLabelProps={{
               style: {
                 fontFamily: "Prompt",
