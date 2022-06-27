@@ -11,7 +11,9 @@ export default function NavBar() {
           width: "100vw",
           flexDirection: "row",
           paddingLeft: "160px",
-          backgroundColor: "white"
+          backgroundColor: "white",
+          position: "fixed",
+          zIndex: "2"
           //   alignContent: "center"
         }}
       >
