@@ -1,10 +1,12 @@
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import UserCard from "../component/UserCard";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Register() {
+  const [loading, setLoading] = useState(true);
+
   const [filter, setFilter] = useState("");
 
   const [allUsers, setAllUsers] = useState([
@@ -49,7 +51,8 @@ export default function Register() {
       );
       setAllUsers(res.data);
       setAllUsersAfterFilter(res.data);
-      console.log(res.data);
+      setLoading(false);
+      //   console.log(res.data);
     };
     fetchData().catch(console.error);
   }, []);
@@ -122,6 +125,89 @@ export default function Register() {
         </Stack>
       );
     }
+  }
+  if (loading) {
+    return (
+      <>
+        <Stack sx={{ mt: "110px", flexDirection: "row", mb: "-10px" }}>
+          <Typography
+            sx={{
+              width: "380px",
+              height: "73px",
+
+              fontFamily: "Prompt",
+              fontStyle: "normal",
+              fontWeight: 500,
+              fontSize: "47px",
+              lineHeight: "73px",
+              ml: "160px"
+            }}
+          >
+            รายชื่อผู้ลงทะเบียน
+          </Typography>
+          <Box
+            sx={{
+              mt: "25px",
+              width: "260px",
+              height: "30px",
+              borderRadius: "5px",
+              ml: "auto",
+              mr: "160px",
+              backgroundColor: "white"
+            }}
+          >
+            <Skeleton variant="rectangular" width={260} height={32} />
+          </Box>
+        </Stack>
+        <Box
+          sx={{
+            width: "calc(100vw - 320px)",
+            height: "auto",
+            ml: "160px"
+          }}
+        >
+          <Stack
+            key={"skeleton" + 1}
+            sx={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              mt: "40px"
+            }}
+          >
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+          </Stack>
+          <Stack
+            key={"skeleton" + 2}
+            sx={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              mt: "40px"
+            }}
+          >
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+          </Stack>
+          <Stack
+            key={"skeleton" + 3}
+            sx={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              mt: "40px"
+            }}
+          >
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+            <Skeleton variant="rectangular" width={249} height={95} />
+          </Stack>
+        </Box>
+      </>
+    );
   }
   return (
     <>
