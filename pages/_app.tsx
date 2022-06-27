@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           // backgroundColor: "black"
           backgroundImage: "url(/assets/bg-desktop.svg)",
           overflowX: "hidden",
-          overflowY: "scroll",
+          overflowY: "auto",
           backgroundAttachment: "scroll"
         }}
       >
