@@ -8,7 +8,6 @@ import ig from "../public/assets/ig-logo.svg";
 import facebook from "../public/assets/fb-logo.svg";
 import twitter from "../public/assets/twitter-logo.svg";
 import { LoadingButton } from "@mui/lab";
-import CloseIcon from "@mui/icons-material/Close";
 import {
   Alert,
   Box,

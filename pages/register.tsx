@@ -46,8 +46,8 @@ export default function Register() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/${baseURL}/users`
-        // `https://api.allorigins.win/raw?url=${baseURL}/users`
+        // `https://cors-anywhere.herokuapp.com/${baseURL}/users`
+        `https://api.allorigins.win/raw?url=${baseURL}/users`
       );
       setAllUsers(res.data);
       setAllUsersAfterFilter(res.data);
