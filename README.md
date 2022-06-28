@@ -138,3 +138,4 @@
     - navbar เป็นแบบ fixed position เคลื่อนที่ติดไปแม้จะ scroll mouse
     - ในขนาดหน้าจอที่สูงน้อยกว่าที่ออกแบบ ให้สามารถ scroll เลื่อนลงได้ (หน้าลงทะเบียน)
     - ชื่อ, สกุล และ ชื่อผู้ใช้ มีความยาวไม่เกิน 20 ตัวอักษร
+    - ติด CORS policy ใช้ https://cors-anywhere.herokuapp.com/ หรือ https://api.allorigins.win/raw?url= แทน
