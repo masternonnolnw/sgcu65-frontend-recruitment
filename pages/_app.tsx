@@ -13,8 +13,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           width: "100%",
           height: "100vh",
           backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: { xs: "-80px 110px", sm: "0 0" },
           // backgroundColor: "black"
-          backgroundImage: "url(/assets/bg-desktop.svg)",
+          backgroundImage: {
+            xs: "url(/assets/bg-mobile.svg)",
+            lg: "url(/assets/bg-desktop.svg)"
+          },
           overflowX: "hidden",
           overflowY: "auto",
           backgroundAttachment: "scroll",

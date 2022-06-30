@@ -12,7 +12,7 @@ import NavBar from "../component/NavBar";
 import UserCard from "../component/UserCard";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export default function Register2() {
+export default function Register() {
   const [loading, setLoading] = useState(true);
 
   const [filter, setFilter] = useState("");
@@ -65,7 +65,7 @@ export default function Register2() {
   if (allUsersAfterFilter) {
     for (var i = 0; i < allUsersAfterFilter.length; i++) {
       stackUserCards.push(
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={3} key={i}>
           <UserCard
             key={allUsersAfterFilter[i].username}
             username={allUsersAfterFilter[i].username}
@@ -80,8 +80,9 @@ export default function Register2() {
     const skeletonBoxs = [];
     for (let i = 0; i < 16; i++) {
       skeletonBoxs.push(
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={3} key={i}>
           <Skeleton
+            key={"skeleton" + i}
             variant="rectangular"
             width="90%"
             height="105px"
@@ -108,7 +109,13 @@ export default function Register2() {
             mb: "30px"
           }}
         >
-          <Grid item xs={12} lg={9} sx={{ padding: "20px" }}>
+          <Grid
+            item
+            xs={12}
+            lg={9}
+            sx={{ padding: "20px" }}
+            key="headerTitleSkeleton"
+          >
             <Typography
               sx={{
                 width: { xs: "90%", lg: "380px" },
@@ -165,6 +172,7 @@ export default function Register2() {
           mt: "80px",
           mb: "30px"
         }}
+        key="headerTitle"
       >
         <Grid item xs={12} lg={9} sx={{ padding: "20px" }}>
           <Typography
