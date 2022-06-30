@@ -72,7 +72,7 @@
 
 - [x] เว็บไซต์มีหน้าตาเหมือนกับ UX/UI ที่กำหนดไว้
 - [x] เว็บไซต์สามารถ Navigate ผู้ใช้ไปยัง Social Media อื่น ๆ ได้เช่น Facebook, Instagram และ Twitter
-- [ ] เว็บไซต์สามารถ Responsive ได้ (เว็บใน Mobile และ Desktop ต้องไม่เละ!)
+- [x] เว็บไซต์สามารถ Responsive ได้ (เว็บใน Mobile และ Desktop ต้องไม่เละ!)
 - [x] เว็บไซต์มีระบบ Form Validation
   - ทุก field ต้องไม่ใช่ string เปล่า
   - ชื่อผู้ใช้ต้องประกอบด้วยตัวอักษรภาษาอังกฤษหรือตัวเลขเท่านั้น
@@ -86,7 +86,7 @@
 อย่าลืม mark ว่าทำ feature ไหนแล้วด้วยการใส่ x ลงใน [ ]
 
 - [x] เว็บไซต์มีหน้าตาเหมือนกับ UX/UI ที่กำหนดไว้
-- [ ] เว็บไซต์สามารถ Responsive ได้ (เว็บใน Mobile และ Desktop ต้องไม่เละ!)
+- [x] เว็บไซต์สามารถ Responsive ได้ (เว็บใน Mobile และ Desktop ต้องไม่เละ!)
 - [x] เว็บไซต์สามารถดึงข้อมูลผู้ใช้จาก API มาแสดงได้
 - [x] User สามารถพิมพ์ค้นหาผู้ใช้ได้จาก
   - ชื่อ
@@ -138,4 +138,7 @@
     - navbar เป็นแบบ fixed position เคลื่อนที่ติดไปแม้จะ scroll mouse
     - ในขนาดหน้าจอที่สูงน้อยกว่าที่ออกแบบ ให้สามารถ scroll เลื่อนลงได้ (หน้าลงทะเบียน)
     - ชื่อ, สกุล และ ชื่อผู้ใช้ มีความยาวไม่เกิน 20 ตัวอักษร
-    - ติด CORS policy ใช้ https://cors-anywhere.herokuapp.com/ หรือ https://api.allorigins.win/raw?url= แทน
+## How To Run
+    - run คำสั่ง yarn install
+    - run คำสั่ง yarn build แล้วตามด้วย yarn start
+      หรือ run yarn dev
