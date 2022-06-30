@@ -134,6 +134,7 @@
     - เปลี่ยนสี scrollbar
     - loading button status
     - alert แจ้งเตือนการ ลงทะเบียนสำเร็จ
+    - แถบเลือกหน้าใน NavBar
 ## Assumption
     - navbar เป็นแบบ fixed position เคลื่อนที่ติดไปแม้จะ scroll mouse
     - ในขนาดหน้าจอที่สูงน้อยกว่าที่ออกแบบ ให้สามารถ scroll เลื่อนลงได้ (หน้าลงทะเบียน)
