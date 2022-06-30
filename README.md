@@ -141,4 +141,4 @@
 ## How To Run
     - run คำสั่ง yarn install
     - run คำสั่ง yarn build แล้วตามด้วย yarn start
-      หรือ run yarn dev
+      หรือ run คำสั่ง yarn dev
