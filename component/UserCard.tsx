@@ -9,7 +9,7 @@ export default function UserCard(props: UserCardProps) {
   return (
     <Box
       sx={{
-        width: "249px",
+        width: "90%",
         height: "105px",
         backgroundColor: "white",
         border: "1px solid #DE5C8E",
@@ -17,9 +17,11 @@ export default function UserCard(props: UserCardProps) {
         padding: "15px",
         transition: "0.2s",
         overflowX: "hidden",
+        ml: "auto",
+        mr: "auto",
         "&:hover": {
           backgroundColor: "#fcedf3",
-          width: "350px"
+          width: "100%"
         }
       }}
     >
@@ -31,10 +33,14 @@ export default function UserCard(props: UserCardProps) {
           fontFamily: "Prompt",
           fontStyle: "normal",
           fontWeight: 500,
-          fontSize: "23px",
+          fontSize: "22px",
           lineHeight: "36px",
+          transition: "0.2s",
 
           color: "#DE5C8E"
+          // "&:hover": {
+          //   fontSize: "18px"
+          // }
         }}
       >
         {props.username}
@@ -47,10 +53,14 @@ export default function UserCard(props: UserCardProps) {
           fontFamily: "Prompt",
           fontStyle: "normal",
           fontWeight: 500,
-          fontSize: "16px",
+          fontSize: "15px",
           lineHeight: "24px",
 
-          color: "#000000"
+          color: "#000000",
+          transition: "0.2s"
+          // "&:hover": {
+          //   fontSize: "15px"
+          // }
         }}
       >
         {props.firstName} {props.lastName}

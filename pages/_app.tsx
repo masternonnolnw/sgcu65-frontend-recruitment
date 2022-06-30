@@ -6,7 +6,6 @@ import { Container } from "@mui/material";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <NavBar />
       <Container
         maxWidth={false}
         disableGutters

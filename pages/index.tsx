@@ -184,40 +184,47 @@ const Home: NextPage = () => {
     setLoading(true);
     if (formIsValid()) {
       try {
-        const res: any = await axios.post(
-          `https://cors-anywhere.herokuapp.com/${baseURL}/users`,
-          // `https://api.allorigins.win/raw?url=${baseURL}/users`,
-          {
-            username: formValues.username,
-            name: formValues.firstName,
-            surname: formValues.lastName,
-            email: formValues.email,
-            password: formValues.password
-          }
-        );
+        const res: any = await axios.post(`${baseURL}/users`, {
+          username: formValues.username,
+          name: formValues.firstName,
+          surname: formValues.lastName,
+          email: formValues.email,
+          password: formValues.password
+        });
         setLoading(false);
         handleOpenSnackBar();
       } catch (err: any) {
         setLoading(false);
-        setResFromSubmit(err.response.data.message[0]);
+        try {
+          setResFromSubmit(err.response.data.message[0]);
+        } catch (err) {
+          console.error(err);
+        }
       }
     }
   };
 
   return (
     <>
+      <NavBar />
       <Stack sx={{ flexDirection: "row", mt: "80px" }}>
-        <Box sx={{ ml: "141px", mt: "122px" }}>
+        <Box
+          sx={{
+            ml: "141px",
+            mt: "122px",
+            display: { xs: "none", lg: "block" }
+          }}
+        >
           <Image src={kite} alt="kite image" width={512} height={512} />
         </Box>
         <Box
           sx={{
-            width: "380px",
+            width: { xs: "360px", lg: "380px" },
             height: "auto",
-            ml: "auto",
-            mr: "119px",
-            mt: "90px",
-            padding: "40px 60px 60px",
+            ml: { xs: "auto", lg: "auto" },
+            mr: { xs: "auto", lg: "119px" },
+            mt: { xs: "10px", lg: "90px" },
+            padding: { xs: "40px 50px 50px", lg: "40px 60px 60px" },
             gap: "40px",
             backgroundColor: "white",
             border: "1px solid #DE5C8E",
@@ -319,44 +326,7 @@ const Home: NextPage = () => {
                     }
                   }}
                   sx={{ mt: "31px", width: "260px" }}
-                  // endAdornment={
-                  //   inputFieldValue.password ? (
-                  // <InputAdornment position="end">
-                  //   <IconButton
-                  //     onClick={() => {
-                  //       index == 4
-                  //         ? setShowPassword(!showPassword)
-                  //         : setShowConfirmPassword(!showConfirmPassword);
-                  //     }}
-                  //     edge="end"
-                  //   >
-                  //     {(index == 4 && showPassword) ||
-                  //     (index == 5 && showConfirmPassword) ? (
-                  //       <VisibilityOff />
-                  //     ) : (
-                  //       <Visibility />
-                  //     )}
-                  //   </IconButton>
-                  // </InputAdornment>
-                  //   ) : (
-                  //     <></>
-                  //   )
-                  // }
                 />
-                // <TextField
-                //   key={index}
-                //   onBlur={handleInputValue}
-                //   onChange={handleInputValue}
-                //   name={inputFieldValue.name}
-                //   label={inputFieldValue.label}
-                //   multiline={inputFieldValue.multiline ?? false}
-                //   rows={inputFieldValue.rows ?? 1}
-                //   autoComplete="none"
-                // {...(errors[inputFieldValue.name] && {
-                //   error: true,
-                //   helperText: errors[inputFieldValue.name]
-                // })}
-                // />
               );
             })}
             <Typography
@@ -395,7 +365,13 @@ const Home: NextPage = () => {
         </Box>
       </Stack>
       <Stack
-        sx={{ mt: "30px", width: "100%", flexDirection: "row", mb: "10px" }}
+        sx={{
+          mt: "30px",
+          width: "100%",
+          flexDirection: "row",
+          mb: "10px",
+          display: { xs: "none", lg: "flex" }
+        }}
       >
         <IconButton
           href="https://www.instagram.com/nonnolnw/"

@@ -1,10 +1,18 @@
-import { Box, Skeleton, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Skeleton,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import NavBar from "../component/NavBar";
 import UserCard from "../component/UserCard";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export default function Register() {
+export default function Register2() {
   const [loading, setLoading] = useState(true);
 
   const [filter, setFilter] = useState("");
@@ -45,236 +53,182 @@ export default function Register() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(
-        // `https://cors-anywhere.herokuapp.com/${baseURL}/users`
-        `https://api.allorigins.win/raw?url=${baseURL}/users`
-      );
+      const res = await axios.get(`${baseURL}/users`);
       setAllUsers(res.data);
       setAllUsersAfterFilter(res.data);
       setLoading(false);
-      //   console.log(res.data);
     };
     fetchData().catch(console.error);
   }, []);
 
   const stackUserCards = [];
   if (allUsersAfterFilter) {
-    for (var i = 0; i < allUsersAfterFilter.length; i += 4) {
+    for (var i = 0; i < allUsersAfterFilter.length; i++) {
       stackUserCards.push(
-        <Stack
-          key={"stackUserCards" + i}
-          sx={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            mt: "40px"
-          }}
-        >
+        <Grid item xs={12} lg={3}>
           <UserCard
             key={allUsersAfterFilter[i].username}
             username={allUsersAfterFilter[i].username}
             firstName={allUsersAfterFilter[i].name}
             lastName={allUsersAfterFilter[i].surname}
           />
-          {i + 1 >= allUsersAfterFilter.length ? (
-            <Box
-              sx={{
-                width: "249px",
-                height: "95px"
-              }}
-            />
-          ) : (
-            <UserCard
-              key={allUsersAfterFilter[i + 1].username}
-              username={allUsersAfterFilter[i + 1].username}
-              firstName={allUsersAfterFilter[i + 1].name}
-              lastName={allUsersAfterFilter[i + 1].surname}
-            />
-          )}
-
-          {i + 2 >= allUsersAfterFilter.length ? (
-            <Box
-              sx={{
-                width: "249px",
-                height: "95px"
-              }}
-            />
-          ) : (
-            <UserCard
-              key={allUsersAfterFilter[i + 2].username}
-              username={allUsersAfterFilter[i + 2].username}
-              firstName={allUsersAfterFilter[i + 2].name}
-              lastName={allUsersAfterFilter[i + 2].surname}
-            />
-          )}
-
-          {i + 3 >= allUsersAfterFilter.length ? (
-            <Box
-              sx={{
-                width: "249px",
-                height: "95px"
-              }}
-            />
-          ) : (
-            <UserCard
-              key={allUsersAfterFilter[i + 3].username}
-              username={allUsersAfterFilter[i + 3].username}
-              firstName={allUsersAfterFilter[i + 3].name}
-              lastName={allUsersAfterFilter[i + 3].surname}
-            />
-          )}
-        </Stack>
+        </Grid>
       );
     }
   }
   if (loading) {
+    const skeletonBoxs = [];
+    for (let i = 0; i < 16; i++) {
+      skeletonBoxs.push(
+        <Grid item xs={12} lg={3}>
+          <Skeleton
+            variant="rectangular"
+            width="90%"
+            height="105px"
+            sx={{
+              ml: "auto",
+              mr: "auto"
+            }}
+          />
+        </Grid>
+      );
+    }
     return (
       <>
-        <Stack sx={{ mt: "110px", flexDirection: "row", mb: "-10px" }}>
-          <Typography
-            sx={{
-              width: "380px",
-              height: "73px",
-
-              fontFamily: "Prompt",
-              fontStyle: "normal",
-              fontWeight: 500,
-              fontSize: "47px",
-              lineHeight: "73px",
-              ml: "160px"
-            }}
-          >
-            รายชื่อผู้ลงทะเบียน
-          </Typography>
-          <Box
-            sx={{
-              mt: "25px",
-              width: "260px",
-              height: "30px",
-              borderRadius: "5px",
-              ml: "auto",
-              mr: "160px",
-              backgroundColor: "white"
-            }}
-          >
-            <Skeleton variant="rectangular" width={260} height={32} />
-          </Box>
-        </Stack>
-        <Box
+        <NavBar />
+        <Grid
+          container
+          spacing={2}
           sx={{
-            width: "calc(100vw - 320px)",
-            height: "auto",
-            ml: "160px"
+            width: "86vw",
+            ml: "7vw",
+            // ml: "160px",
+            alignContent: "center",
+            mt: "80px",
+            mb: "30px"
           }}
         >
-          <Stack
-            key={"skeleton" + 1}
-            sx={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              mt: "40px"
-            }}
-          >
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-          </Stack>
-          <Stack
-            key={"skeleton" + 2}
-            sx={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              mt: "40px"
-            }}
-          >
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-          </Stack>
-          <Stack
-            key={"skeleton" + 3}
-            sx={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              mt: "40px"
-            }}
-          >
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-            <Skeleton variant="rectangular" width={249} height={95} />
-          </Stack>
-        </Box>
+          <Grid item xs={12} lg={9} sx={{ padding: "20px" }}>
+            <Typography
+              sx={{
+                width: { xs: "90%", lg: "380px" },
+                height: { xs: "34px", lg: "73px" },
+                ml: { xs: "auto", lg: "14px" },
+                mr: "auto",
+
+                fontFamily: "Prompt",
+                fontStyle: "normal",
+                fontWeight: 500,
+                fontSize: { xs: "34px", lg: "47px" },
+                lineHeight: { xs: "50px", lg: "73px" }
+                // ml: "160px"
+              }}
+            >
+              รายชื่อผู้ลงทะเบียน
+            </Typography>
+          </Grid>
+          <Grid item xs={12} lg={3}>
+            <Box
+              sx={{
+                mt: { xs: "0px", lg: "25px" },
+                width: { xs: "90%", lg: "260px" },
+                height: "30px",
+                borderRadius: "5px",
+                backgroundColor: "white",
+                ml: "auto",
+                mr: "auto"
+              }}
+            >
+              <Skeleton
+                variant="rectangular"
+                sx={{ width: { xs: "100%", lg: "260px" } }}
+                height={32}
+              />
+            </Box>
+          </Grid>
+          {skeletonBoxs}
+        </Grid>
       </>
     );
   }
   return (
     <>
-      <Stack sx={{ mt: "110px", flexDirection: "row", mb: "-10px" }}>
-        <Typography
-          sx={{
-            width: "380px",
-            height: "73px",
-
-            fontFamily: "Prompt",
-            fontStyle: "normal",
-            fontWeight: 500,
-            fontSize: "47px",
-            lineHeight: "73px",
-            ml: "160px"
-          }}
-        >
-          รายชื่อผู้ลงทะเบียน
-        </Typography>
-        <Box
-          sx={{
-            mt: "25px",
-            width: "260px",
-            height: "30px",
-            borderRadius: "5px",
-            ml: "auto",
-            mr: "160px",
-            backgroundColor: "white"
-          }}
-        >
-          <TextField
-            id="outlined-basic"
-            label="ค้นหา"
-            variant="outlined"
-            size="small"
-            onChange={handleSearch}
-            value={filter}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Prompt",
-                fontStyle: "normal",
-                marginTop: "-4px",
-                color: "rgba(180, 180, 180, 1)"
-              }
-            }}
-            inputProps={{
-              style: {
-                fontFamily: "Prompt",
-                fontStyle: "normal",
-                padding: "0",
-                height: "32px",
-                paddingLeft: "10px"
-              }
-            }}
-            sx={{ width: "260px" }}
-          />
-        </Box>
-      </Stack>
-      <Box
+      <NavBar />
+      <Grid
+        container
+        spacing={2}
         sx={{
-          width: "calc(100vw - 320px)",
-          height: "auto",
-          ml: "160px"
+          width: "86vw",
+          ml: "7vw",
+          // ml: "160px",
+          alignContent: "center",
+          mt: "80px",
+          mb: "30px"
         }}
       >
+        <Grid item xs={12} lg={9} sx={{ padding: "20px" }}>
+          <Typography
+            sx={{
+              width: { xs: "90%", lg: "380px" },
+              height: { xs: "34px", lg: "73px" },
+              ml: { xs: "auto", lg: "14px" },
+              mr: "auto",
+
+              fontFamily: "Prompt",
+              fontStyle: "normal",
+              fontWeight: 500,
+              fontSize: { xs: "34px", lg: "47px" },
+              lineHeight: { xs: "50px", lg: "73px" }
+              // ml: "160px"
+            }}
+          >
+            รายชื่อผู้ลงทะเบียน
+          </Typography>
+        </Grid>
+        <Grid item xs={12} lg={3}>
+          <Box
+            sx={{
+              mt: { xs: "0px", lg: "25px" },
+              width: { xs: "90%", lg: "260px" },
+              height: "30px",
+              borderRadius: "5px",
+              backgroundColor: "white",
+              ml: "auto",
+              mr: "auto"
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="ค้นหา"
+              variant="outlined"
+              size="small"
+              onChange={handleSearch}
+              value={filter}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Prompt",
+                  fontStyle: "normal",
+                  marginTop: "-4px",
+                  color: "rgba(180, 180, 180, 1)"
+                }
+              }}
+              inputProps={{
+                style: {
+                  fontFamily: "Prompt",
+                  fontStyle: "normal",
+                  padding: "0",
+                  height: "32px",
+                  paddingLeft: "10px"
+                }
+              }}
+              sx={{
+                width: { xs: "100%", lg: "260px" }
+              }}
+            />
+          </Box>
+        </Grid>
         {stackUserCards}
-      </Box>
+      </Grid>
     </>
   );
 }

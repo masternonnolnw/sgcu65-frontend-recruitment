@@ -10,7 +10,7 @@ export default function NavBar() {
           height: "80px",
           width: "100vw",
           flexDirection: "row",
-          paddingLeft: "160px",
+          paddingLeft: { xs: "28px", lg: "160px" },
           backgroundColor: "white",
           position: "fixed",
           zIndex: "2"
