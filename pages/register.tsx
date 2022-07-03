@@ -132,7 +132,7 @@ export default function Register() {
                 fontFamily: "Prompt",
                 fontStyle: "normal",
                 fontWeight: 500,
-                fontSize: { xs: "34px", lg: "47px" },
+                fontSize: { xs: "20px", sm: "34px", lg: "47px" },
                 lineHeight: { xs: "50px", lg: "73px" }
                 // ml: "160px"
               }}
@@ -184,14 +184,14 @@ export default function Register() {
           <Typography
             sx={{
               width: { xs: "90%", lg: "380px" },
-              height: { xs: "34px", lg: "73px" },
+              height: { xs: "25px", sm: "34px", lg: "73px" },
               ml: { xs: "auto", lg: "14px" },
               mr: "auto",
 
               fontFamily: "Prompt",
               fontStyle: "normal",
               fontWeight: 500,
-              fontSize: { xs: "34px", lg: "47px" },
+              fontSize: { xs: "25px", sm: "34px", lg: "47px" },
               lineHeight: { xs: "50px", lg: "73px" }
               // ml: "160px"
             }}
